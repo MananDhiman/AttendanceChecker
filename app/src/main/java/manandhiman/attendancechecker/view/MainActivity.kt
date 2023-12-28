@@ -3,10 +3,8 @@ package manandhiman.attendancechecker.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.room.Room
 import manandhiman.attendancechecker.R
 import manandhiman.attendancechecker.databinding.ActivityMainBinding
-import manandhiman.attendancechecker.model.AppDatabase
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,14 +15,8 @@ class MainActivity : AppCompatActivity() {
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
 
-    val db = Room.databaseBuilder(
-      this,
-      AppDatabase::class.java, "attendance-record",
-    ).allowMainThreadQueries().build()
-    val attendanceDao = db.attendanceDao()
-
-    val historyFragment = HistoryFragment(attendanceDao)
-    val newFragment = NewFragment(attendanceDao)
+    val historyFragment = HistoryFragment()
+    val newFragment = NewFragment()
 
     loadFragment(newFragment)
 

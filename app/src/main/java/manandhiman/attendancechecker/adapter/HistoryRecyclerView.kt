@@ -1,4 +1,4 @@
-package manandhiman.attendancechecker.model
+package manandhiman.attendancechecker.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import manandhiman.attendancechecker.R
+import manandhiman.attendancechecker.model.Attendance
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
-class AttendanceAdapter(private val attendanceList: List<Attendance>):
-  RecyclerView.Adapter<AttendanceAdapter.ViewHolder>(){
+class HistoryRecyclerView(private val attendanceList: List<Attendance>):
+  RecyclerView.Adapter<HistoryRecyclerView.ViewHolder>(){
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
     val view = LayoutInflater.from(parent.context)

@@ -6,12 +6,12 @@ plugins {
 
 android {
   namespace = "manandhiman.attendancechecker"
-  compileSdk = 33
+  compileSdk = 34
 
   defaultConfig {
     applicationId = "manandhiman.attendancechecker"
     minSdk = 22
-    targetSdk = 33
+    targetSdk = 34
     versionCode = 2
     versionName = "1.1"
 
@@ -51,15 +51,18 @@ android {
 
 dependencies {
 
-  implementation("androidx.core:core-ktx:1.9.0")
+  implementation("androidx.core:core-ktx:1.12.0")
   implementation("androidx.appcompat:appcompat:1.6.1")
-  implementation("com.google.android.material:material:1.9.0")
+  implementation("com.google.android.material:material:1.11.0")
   implementation("androidx.constraintlayout:constraintlayout:2.1.4")
   testImplementation("junit:junit:4.13.2")
   androidTestImplementation("androidx.test.ext:junit:1.1.5")
   androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-  implementation("androidx.room:room-runtime:2.5.2")
-  annotationProcessor("androidx.room:room-compiler:2.5.2")
-  kapt("androidx.room:room-compiler:2.5.2")
+  implementation("androidx.room:room-runtime:2.6.1")
+  annotationProcessor("androidx.room:room-compiler:2.6.1")
+  kapt("androidx.room:room-compiler:2.6.1")
+
+  val lifecycleVersion = "2.6.2"
+  implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
 }

@@ -1,8 +1,9 @@
-package manandhiman.attendancechecker.model
+package manandhiman.attendancechecker.data
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import manandhiman.attendancechecker.model.Attendance
 
 @Dao
 interface AttendanceDao {

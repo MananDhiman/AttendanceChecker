@@ -1,25 +1,18 @@
 package manandhiman.attendancechecker.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import manandhiman.attendancechecker.databinding.FragmentNewBinding
-import manandhiman.attendancechecker.model.Attendance
-import manandhiman.attendancechecker.model.AttendanceDao
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.util.*
+import manandhiman.attendancechecker.viewmodel.MainViewModel
 
-class NewFragment(dao: AttendanceDao) : Fragment() {
+class NewFragment : Fragment() {
 
-  private val attendanceDao: AttendanceDao = dao
-  private var presentDays: Int = 0; private var totalDays: Int =0
+  private lateinit var viewModel: MainViewModel
   private lateinit var binding: FragmentNewBinding
-  private val sdf = SimpleDateFormat("dd/M/yyyy")
-  private val currentDate = sdf.format(Date())
 
   override fun onCreateView(
     inflater: LayoutInflater, container: ViewGroup?,
@@ -27,49 +20,24 @@ class NewFragment(dao: AttendanceDao) : Fragment() {
   ): View {
     binding = FragmentNewBinding.inflate(layoutInflater, container,false)
 
-    initValues()
+    viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-    binding.mainButtonPresent.setOnClickListener { markPresent() }
-    binding.mainButtonAbsent.setOnClickListener { markAbsent() }
+    binding.mainTextViewAttendance.text = viewModel.initVal()
+
+    binding.mainButtonPresent.setOnClickListener {
+      viewModel.markPresent()
+      setAttendanceInTextView()
+    }
+
+    binding.mainButtonAbsent.setOnClickListener {
+      viewModel.markAbsent()
+      setAttendanceInTextView()
+    }
     return binding.root
   }
 
-  private fun initValues() {
-    if(attendanceDao.getLast()!=null){
-      val lastAttendance = attendanceDao.getLast()
-      presentDays = lastAttendance.presentDays
-      totalDays = lastAttendance.totalDays
-
-      setAttendanceInTextView()
-      return
-    }
-
-    binding.mainTextViewAttendance.text = "No Previous Records Exist"
-  }
-
-  private fun markPresent() {
-    presentDays++; totalDays++
-    val newAttendance = Attendance(totalDays,presentDays,currentDate,"Present")
-    attendanceDao.insert(newAttendance)
-    setAttendanceInTextView()
-  }
-
-  private fun markAbsent() {
-    totalDays++
-    val newAttendance = Attendance(totalDays,presentDays,currentDate,"Absent")
-    attendanceDao.insert(newAttendance)
-    setAttendanceInTextView()
-  }
-
   private fun setAttendanceInTextView() {
-    binding.mainTextViewTodayDate.text = currentDate
-
-    val percentage = ((presentDays.toDouble()/totalDays.toDouble())*100)
-    val df = DecimalFormat("##.##")
-    df.roundingMode = RoundingMode.FLOOR
-    val roundOff = df.format(percentage)
-
-    binding.mainTextViewAttendance.text = "$presentDays/$totalDays = $roundOff%"
+    binding.mainTextViewAttendance.text = viewModel.formattedAttendance()
   }
 
 }

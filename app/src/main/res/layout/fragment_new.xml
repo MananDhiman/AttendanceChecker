@@ -8,8 +8,7 @@
   tools:context=".view.NewFragment">
 
   <TextView
-    android:id="@+id/main_text_view_today_date"
-    android:layout_width="wrap_content"
+      android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="64dp"
     android:text="Today's Date"
@@ -53,17 +52,17 @@
     app:layout_constraintVertical_bias="0.45999998" />
 
   <TextView
-    android:id="@+id/main_text_view_attendance"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="64dp"
-    android:text="TextView"
-    android:textColor="#000000"
-    android:textSize="40sp"
-    android:textStyle="bold"
-    app:backgroundTint="#4CAF50"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/main_button_present" />
+      android:id="@+id/main_text_view_attendance"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="64dp"
+      android:text="TextView"
+      android:textColor="#000000"
+      android:textSize="40sp"
+      android:textStyle="bold"
+      app:backgroundTint="#4CAF50"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/main_button_present" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
