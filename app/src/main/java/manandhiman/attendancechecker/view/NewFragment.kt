@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import manandhiman.attendancechecker.databinding.FragmentNewBinding
 import manandhiman.attendancechecker.viewmodel.MainViewModel
 
@@ -22,17 +23,20 @@ class NewFragment : Fragment() {
 
     viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-    binding.mainTextViewAttendance.text = viewModel.initVal()
+    binding.recyclerView.layoutManager = LinearLayoutManager(context)
+    binding.recyclerView.adapter = viewModel.getNewAttendanceRVAdapter()
 
-    binding.mainButtonPresent.setOnClickListener {
-      viewModel.markPresent()
-      setAttendanceInTextView()
-    }
-
-    binding.mainButtonAbsent.setOnClickListener {
-      viewModel.markAbsent()
-      setAttendanceInTextView()
-    }
+//    binding.mainTextViewAttendance.text = viewModel.initVal()
+//
+//    binding.mainButtonPresent.setOnClickListener {
+//      viewModel.markPresent()
+//      setAttendanceInTextView()
+//    }
+//
+//    binding.mainButtonAbsent.setOnClickListener {
+//      viewModel.markAbsent()
+//      setAttendanceInTextView()
+//    }
     return binding.root
   }
 

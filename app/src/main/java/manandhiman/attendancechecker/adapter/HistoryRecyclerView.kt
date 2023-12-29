@@ -27,7 +27,7 @@ class HistoryRecyclerView(private val attendanceList: List<Attendance>):
   override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     val attendance = attendanceList[position]
 
-    holder.textViewDate.text = "${attendance.date} ${attendance.status}"
+    holder.textViewDate.text = "${attendance.date} ${attendance.subjectName} ${attendance.status}"
 
     val percentage = ((attendance.presentDays.toDouble()/attendance.totalDays.toDouble())*100)
     val df = DecimalFormat("##.##")

@@ -13,8 +13,18 @@ interface AttendanceDao {
   @Query("SELECT * FROM attendance ORDER BY ID DESC LIMIT 1")
   fun getLast(): Attendance
 
+  @Query("SELECT * FROM attendance WHERE subject_name=:id ORDER BY id DESC LIMIT 1 ")
+  fun getLastById(id: String): Attendance
+
+  @Query("SELECT max(id) as id,subject_name,date,status,total_days,present_days from attendance group by subject_name;")
+  fun getLastBySubject(): List<Attendance>
+
   @Insert
-  fun insert(vararg attendance: Attendance)
+  fun insert(attendance: Attendance)
+
+  @Insert
+  fun addAttendance(attendance: ArrayList<Attendance>)
+
 
   @Query("DELETE FROM attendance WHERE id = :id")
   fun deleteAttendanceById(id: Int)
