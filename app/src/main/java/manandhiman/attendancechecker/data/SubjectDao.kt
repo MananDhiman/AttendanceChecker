@@ -16,6 +16,7 @@ interface SubjectDao {
 
   @Query("SELECT name FROM subject WHERE id=:id;")
   fun getSubject(id: Int): String
+
   @Insert
   fun addSubjects(subjectNames: ArrayList<Subject>)
 }

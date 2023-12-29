@@ -26,20 +26,21 @@ class MainActivity : AppCompatActivity() {
     // disable buttons until subject names entered
     // else load new attendance fragment
 
-    if(!viewModel.isSetup()) {
+    if (!viewModel.isSetup()) {
       loadFragment(SetupFragment())
-      binding.buttonHistory.isEnabled = false
-      binding.buttonNew.isEnabled = false
+
+      binding.btHistory.isEnabled = false
+      binding.btNew.isEnabled = false
     }
     else loadFragment(newFragment)
 
-    binding.buttonNew.setOnClickListener { loadFragment(newFragment) }
-    binding.buttonHistory.setOnClickListener { loadFragment(historyFragment) }
+    binding.btNew.setOnClickListener { loadFragment(newFragment) }
+    binding.btHistory.setOnClickListener { loadFragment(historyFragment) }
   }
 
   private fun loadFragment(fragment: Fragment) {
     supportFragmentManager.beginTransaction().apply {
-      replace(R.id.frameLayout,fragment)
+      replace(R.id.fl, fragment)
       commit()
     }
   }

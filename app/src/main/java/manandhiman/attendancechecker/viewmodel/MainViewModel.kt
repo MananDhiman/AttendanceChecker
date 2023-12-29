@@ -14,9 +14,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class MainViewModel(application: Application): AndroidViewModel(application) {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-  private var presentDays: Int = 0; private var totalDays: Int =0
+  private var presentDays: Int = 0
+  private var totalDays: Int = 0
   private val sdf = SimpleDateFormat("dd/M/yyyy", Locale.getDefault())
   private val currentDate = sdf.format(Date())
 
@@ -28,39 +29,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
   private val attendanceDao = db.attendanceDao()
   private val subjectDao = db.subjectDao()
 
-  fun initVal(): String {
-    if(attendanceDao.getLast()!=null){
-      val lastAttendance = attendanceDao.getLast()
-
-      presentDays = lastAttendance.presentDays
-      totalDays = lastAttendance.totalDays
-
-      return formattedAttendance()
-    }
-    return "No Previous Records Exist"
-  }
-
-//  fun markPresent() {
-//    presentDays++; totalDays++
-//    val newAttendance = Attendance(totalDays,presentDays,currentDate,"Present")
-//    attendanceDao.insert(newAttendance)
-//  }
-//
-//  fun markAbsent() {
-//    totalDays++
-//    val newAttendance = Attendance(totalDays,presentDays,currentDate,"Absent")
-//    attendanceDao.insert(newAttendance)
-//  }
-
-  fun formattedAttendance() = "${presentDays}/${totalDays} = ${percentage()}"
-
-  private fun percentage(): String {
-    val percentage = ((presentDays.toDouble() / totalDays.toDouble()) * 100)
-    val df = DecimalFormat("##.##")
-    df.roundingMode = RoundingMode.FLOOR
-
-    return df.format(percentage)
-  }
   fun historyRecyclerViewAdapter(): HistoryRecyclerView {
     val listAttendance = attendanceDao.getAll()
     return HistoryRecyclerView(listAttendance)
@@ -69,8 +37,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
   fun isSetup() = subjectDao.getAllSubjects().isNotEmpty()
   fun addSubjectsToDB(subjectNames: ArrayList<Subject>) {
     subjectDao.addSubjects(subjectNames)
-    for(i in subjectNames) {
-      val att = Attendance(i.name,"","",0,0)
+    for (i in subjectNames) {
+      val att = Attendance(i.name, "", "", 0, 0)
       attendanceDao.insert(att)
     }
 
@@ -80,18 +48,26 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     val list = attendanceDao.getLastBySubject()
     val adapter = NewRecyclerView(list)
 
-    adapter.setOnClickListener(object: NewRecyclerView.OnClickListener {
+    adapter.setOnClickListener(object : NewRecyclerView.OnClickListener {
       override fun onMarkPresent(id: String) {
         val prevAtt = attendanceDao.getLastById(id)
 
-        val att = Attendance(prevAtt.subjectName, currentDate,"Present",prevAtt.totalDays+1,prevAtt.presentDays+1)
+        val att = Attendance(
+          prevAtt.subjectName,
+          currentDate,
+          "Present",
+          prevAtt.totalDays + 1,
+          prevAtt.presentDays + 1
+        )
         attendanceDao.insert(att)
       }
 
       override fun onMarkAbsent(id: String) {
         val prevAtt = attendanceDao.getLastById(id)
 
-        val att = Attendance(prevAtt.subjectName, currentDate,"Absent",prevAtt.totalDays+1,prevAtt.presentDays)
+        val att = Attendance(
+          prevAtt.subjectName, currentDate, "Absent", prevAtt.totalDays + 1, prevAtt.presentDays
+        )
         attendanceDao.insert(att)
       }
 

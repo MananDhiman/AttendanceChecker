@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/ntvSubjectName"
+        android:id="@+id/tv_subject_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="4dp"
@@ -15,7 +15,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/ntvSubjectAttendance"
+        android:id="@+id/tv_subject_attendance"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="30"
@@ -24,7 +24,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btPresent"
+        android:id="@+id/bt_present"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="15"
@@ -36,7 +36,7 @@
         android:textColorLink="#862222" />
 
     <Button
-        android:id="@+id/btAbsent"
+        android:id="@+id/bt_absent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="15"

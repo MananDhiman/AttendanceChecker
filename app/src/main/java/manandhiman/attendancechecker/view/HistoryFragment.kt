@@ -16,15 +16,14 @@ class HistoryFragment : Fragment() {
   private lateinit var viewModel: MainViewModel
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
-    binding = FragmentHistoryBinding.inflate(layoutInflater, container,false)
+    binding = FragmentHistoryBinding.inflate(layoutInflater, container, false)
 
     viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-    binding.recyclerView.layoutManager = LinearLayoutManager(context)
-    binding.recyclerView.adapter = viewModel.historyRecyclerViewAdapter()
+    binding.rv.layoutManager = LinearLayoutManager(context)
+    binding.rv.adapter = viewModel.historyRecyclerViewAdapter()
 
     return binding.root
   }

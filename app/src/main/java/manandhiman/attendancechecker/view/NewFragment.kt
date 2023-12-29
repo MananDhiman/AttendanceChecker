@@ -16,32 +16,17 @@ class NewFragment : Fragment() {
   private lateinit var binding: FragmentNewBinding
 
   override fun onCreateView(
-    inflater: LayoutInflater, container: ViewGroup?,
-    savedInstanceState: Bundle?
+    inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
   ): View {
-    binding = FragmentNewBinding.inflate(layoutInflater, container,false)
+    binding = FragmentNewBinding.inflate(layoutInflater, container, false)
 
     viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-    binding.recyclerView.layoutManager = LinearLayoutManager(context)
-    binding.recyclerView.adapter = viewModel.getNewAttendanceRVAdapter()
+    binding.rv.layoutManager = LinearLayoutManager(context)
+    binding.rv.adapter = viewModel.getNewAttendanceRVAdapter()
 
-//    binding.mainTextViewAttendance.text = viewModel.initVal()
-//
-//    binding.mainButtonPresent.setOnClickListener {
-//      viewModel.markPresent()
-//      setAttendanceInTextView()
-//    }
-//
-//    binding.mainButtonAbsent.setOnClickListener {
-//      viewModel.markAbsent()
-//      setAttendanceInTextView()
-//    }
     return binding.root
   }
 
-  private fun setAttendanceInTextView() {
-    binding.mainTextViewAttendance.text = viewModel.formattedAttendance()
-  }
 
 }

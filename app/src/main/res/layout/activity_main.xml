@@ -7,29 +7,29 @@
   tools:context=".view.MainActivity">
 
   <Button
-    android:id="@+id/buttonNew"
+    android:id="@+id/bt_new"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:text="New Att."
-    app:layout_constraintEnd_toStartOf="@+id/buttonHistory"
+    app:layout_constraintEnd_toStartOf="@+id/bt_history"
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
   <Button
-    android:id="@+id/buttonHistory"
+    android:id="@+id/bt_history"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     android:text="Att. History"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toEndOf="@+id/buttonNew"
+    app:layout_constraintStart_toEndOf="@+id/bt_new"
     app:layout_constraintTop_toTopOf="parent" />
 
   <FrameLayout
-    android:id="@+id/frameLayout"
+    android:id="@+id/fl"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_margin="4dp"
@@ -37,7 +37,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/buttonHistory">
+    app:layout_constraintTop_toBottomOf="@+id/bt_history">
 
   </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
