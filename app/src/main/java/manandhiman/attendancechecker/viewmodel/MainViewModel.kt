@@ -1,25 +1,24 @@
 package manandhiman.attendancechecker.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.room.Room
 import manandhiman.attendancechecker.adapter.HistoryRecyclerView
 import manandhiman.attendancechecker.adapter.NewRecyclerView
 import manandhiman.attendancechecker.data.AppDatabase
 import manandhiman.attendancechecker.model.Attendance
 import manandhiman.attendancechecker.model.Subject
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-  private var presentDays: Int = 0
-  private var totalDays: Int = 0
   private val sdf = SimpleDateFormat("dd/M/yyyy", Locale.getDefault())
   private val currentDate = sdf.format(Date())
+
 
   private val db = Room.databaseBuilder(
     getApplication(),
@@ -29,12 +28,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
   private val attendanceDao = db.attendanceDao()
   private val subjectDao = db.subjectDao()
 
+  private val l = attendanceDao.getLastBySubject().toList()
+
+  val latestAttendanceBySubject = MutableLiveData(l)
+
   fun historyRecyclerViewAdapter(): HistoryRecyclerView {
-    val listAttendance = attendanceDao.getAll()
+    val listAttendance = attendanceDao.getAll().filter { it.totalDays != 0 }
     return HistoryRecyclerView(listAttendance)
   }
 
   fun isSetup() = subjectDao.getAllSubjects().isNotEmpty()
+
   fun addSubjectsToDB(subjectNames: ArrayList<Subject>) {
     subjectDao.addSubjects(subjectNames)
     for (i in subjectNames) {
@@ -45,8 +49,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
   }
 
   fun getNewAttendanceRVAdapter(): NewRecyclerView {
-    val list = attendanceDao.getLastBySubject()
-    val adapter = NewRecyclerView(list)
+    Log.d("log",latestAttendanceBySubject.value.toString())
+    val adapter = NewRecyclerView(latestAttendanceBySubject.value!!)
 
     adapter.setOnClickListener(object : NewRecyclerView.OnClickListener {
       override fun onMarkPresent(id: String) {
@@ -60,6 +64,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
           prevAtt.presentDays + 1
         )
         attendanceDao.insert(att)
+
+        latestAttendanceBySubject.value = attendanceDao.getLastBySubject()
       }
 
       override fun onMarkAbsent(id: String) {
@@ -69,6 +75,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
           prevAtt.subjectName, currentDate, "Absent", prevAtt.totalDays + 1, prevAtt.presentDays
         )
         attendanceDao.insert(att)
+        latestAttendanceBySubject.value = attendanceDao.getLastBySubject()
       }
 
     })

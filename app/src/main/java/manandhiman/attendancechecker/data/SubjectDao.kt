@@ -8,15 +8,15 @@ import manandhiman.attendancechecker.model.Subject
 @Dao
 interface SubjectDao {
 
-  @Insert
-  fun addSubject(subject: Subject)
-
+  // todo if no join used, migrate to shared pref
   @Query("SELECT * FROM subject;")
   fun getAllSubjects(): List<Subject>
 
+  // todo join query
   @Query("SELECT name FROM subject WHERE id=:id;")
   fun getSubject(id: Int): String
 
+  // todo remove if not join used,
   @Insert
   fun addSubjects(subjectNames: ArrayList<Subject>)
 }

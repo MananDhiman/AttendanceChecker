@@ -22,8 +22,14 @@ class NewFragment : Fragment() {
 
     viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
+
+
+//    binding.rv.adapter = viewModel.getNewAttendanceRVAdapter()
+    viewModel.latestAttendanceBySubject.observe(viewLifecycleOwner) {
+      binding.rv.adapter = viewModel.getNewAttendanceRVAdapter()
+    }
+
     binding.rv.layoutManager = LinearLayoutManager(context)
-    binding.rv.adapter = viewModel.getNewAttendanceRVAdapter()
 
     return binding.root
   }

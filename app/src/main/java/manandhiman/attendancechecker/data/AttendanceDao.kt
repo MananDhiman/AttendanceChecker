@@ -10,9 +10,6 @@ interface AttendanceDao {
   @Query("SELECT * FROM attendance ORDER BY ID DESC")
   fun getAll(): List<Attendance>
 
-  @Query("SELECT * FROM attendance ORDER BY ID DESC LIMIT 1")
-  fun getLast(): Attendance
-
   @Query("SELECT * FROM attendance WHERE subject_name=:id ORDER BY id DESC LIMIT 1 ")
   fun getLastById(id: String): Attendance
 
@@ -22,10 +19,7 @@ interface AttendanceDao {
   @Insert
   fun insert(attendance: Attendance)
 
-  @Insert
-  fun addAttendance(attendance: ArrayList<Attendance>)
-
-
-  @Query("DELETE FROM attendance WHERE id = :id")
-  fun deleteAttendanceById(id: Int)
+  // todo delete one, and clear all data
+//  @Query("DELETE FROM attendance WHERE id = :id")
+//  fun deleteAttendanceById(id: Int)
 }

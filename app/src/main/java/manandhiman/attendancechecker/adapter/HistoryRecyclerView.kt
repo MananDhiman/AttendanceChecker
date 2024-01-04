@@ -28,9 +28,8 @@ class HistoryRecyclerView(private val attendanceList: List<Attendance>) :
 
     holder.textViewDate.text = "${attendance.date} ${attendance.subjectName} ${attendance.status}"
 
-    val formattedPercentage = Utils.formattedPercentage(attendance.presentDays, attendance.totalDays)
     holder.textViewAttendance.text =
-      "${attendance.presentDays}/${attendance.totalDays} = $formattedPercentage%"
+      Utils.formattedCurrentAttendance(attendance.presentDays, attendance.totalDays)
   }
 
   override fun getItemCount(): Int = attendanceList.size

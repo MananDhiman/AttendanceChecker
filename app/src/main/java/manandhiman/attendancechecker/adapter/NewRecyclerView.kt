@@ -41,9 +41,8 @@ class NewRecyclerView(private val list: List<Attendance>) :
 
     holder.textViewName.text = attendance.subjectName
 
-    val formattedPercentage = Utils.formattedPercentage(attendance.presentDays, attendance.totalDays)
     holder.textViewAttendance.text =
-      "${attendance.presentDays}/${attendance.totalDays} = $formattedPercentage%"
+      Utils.formattedCurrentAttendance(attendance.presentDays, attendance.totalDays)
 
     holder.btPresent.setOnClickListener {
 
