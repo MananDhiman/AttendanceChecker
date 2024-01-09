@@ -76,7 +76,7 @@ class SetupFragment : Fragment() {
         Toast.makeText(context, "A subject name is empty", Toast.LENGTH_SHORT).show()
         i.requestFocus()
         return false
-      } else if (i.text.toString().length >= 25) {
+      } else if (i.text.toString().length >= 75) {
         Toast.makeText(
           context, "A subject name is quite long. Make sure it's correct", Toast.LENGTH_SHORT
         ).show()

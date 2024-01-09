@@ -22,10 +22,6 @@ class MainActivity : AppCompatActivity() {
     val historyFragment = HistoryFragment()
     val newFragment = NewFragment()
 
-    // todo if app open for first time show setup fragment -> insert no. and names of subjects
-    // disable buttons until subject names entered
-    // else load new attendance fragment
-
     if (!viewModel.isSetup()) {
       loadFragment(SetupFragment())
 

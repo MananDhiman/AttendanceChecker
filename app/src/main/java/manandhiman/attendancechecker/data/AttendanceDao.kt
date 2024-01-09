@@ -1,6 +1,7 @@
 package manandhiman.attendancechecker.data
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import manandhiman.attendancechecker.model.Attendance
@@ -19,7 +20,9 @@ interface AttendanceDao {
   @Insert
   fun insert(attendance: Attendance)
 
-  // todo delete one, and clear all data
-//  @Query("DELETE FROM attendance WHERE id = :id")
-//  fun deleteAttendanceById(id: Int)
+  @Delete
+  fun deleteAttendance(attendance: Attendance)
+
+  @Query("SELECT * FROM attendance WHERE subject_name LIKE ('%'||:searchQuery||'%') OR date LIKE('%'||:searchQuery||'%');")
+  fun search(searchQuery: String): List<Attendance>
 }

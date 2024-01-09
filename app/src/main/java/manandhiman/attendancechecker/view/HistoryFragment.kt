@@ -1,6 +1,7 @@
 package manandhiman.attendancechecker.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,8 +24,18 @@ class HistoryFragment : Fragment() {
     viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
     binding.rv.layoutManager = LinearLayoutManager(context)
-    binding.rv.adapter = viewModel.historyRecyclerViewAdapter()
 
+    binding.btSearch.setOnClickListener {
+      val searchText = binding.etSearchQuery.text
+      if(!searchText.isNullOrBlank()) {
+        Log.d("tag", "now searching")
+        viewModel.searchHistory(searchText.toString())
+      }
+    }
+
+    viewModel.historyAttendance.observe(viewLifecycleOwner) {
+      binding.rv.adapter = viewModel.historyRecyclerViewAdapter(it)
+    }
     return binding.root
   }
 
